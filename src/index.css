@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+}
+html {
+  width: 100%;
+}
+body {
+  min-width: 100%;
+  background-color: #8b7e5d;
+}
+.nav-container {
+  height: 70px;
+  background-color: white;
+}
+.nav-link {
+  text-decoration: none;
+  color: #2782fb;
+  padding: 5px;
+}
+.active {
+  color: blueviolet;
+}
+.store-container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.product-container {
+  width: 400px;
+  height: 500px;
+  margin: 10px;
+}
+.image-container {
+  height: 275px;
+}
+.doggo {
+  width: 100%;
+  height: 100%;
+}
+.product-detail-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+.dialog-box{
+  position: absolute;
+  display: inline-block;
+}
