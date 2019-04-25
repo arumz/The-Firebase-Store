@@ -1,9 +1,18 @@
-import React from "react";
+import React, {Component} from "react";
 
-export default function Cart() {
+class Cart extends Component {
+    constructor(props) {
+        super(props);
 
-    return (
-        <h1>Cart</h1>
-    );
+    }
+    render(){
+
+        return(
+            <div>
+            </div>
+        )
+    }
 
 }
+
+export default Cart;
