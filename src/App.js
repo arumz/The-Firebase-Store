@@ -16,6 +16,7 @@ import pit from "./img/pit-bull.jpg";
 import germanpup from "./img/puppy-german.jpg";
 import wolf from "./img/wolf.jpg";
 import Product from "./Store";
+import fire from './Fire';
 
 class App extends Component {
 
