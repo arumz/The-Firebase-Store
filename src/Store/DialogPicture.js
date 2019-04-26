@@ -2,39 +2,39 @@ import React, {Component} from 'react';
 
 class DialogPicture extends Component {
 
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            display: null
-        }
-
-        this.componentDidMount = function() {
-            document.body.addEventListener('click', this.listenerForNextClick);
-
-        }
-        this.componentWillUnmount = function() {
-            document.body.removeEventListener('click', this.listenerForNextClick);
-
-
-        }
-
+    componentWillMount(){
+        console.log(this.props.isVisible);
 
     }
-    listenerForNextClick = function () {
-        console.log('hit');
-    }
+    // listenerForNextClick = function () {
+    //     console.log('hit');
+    // }
 
     render(){
+        if (this.props.isVisible === true) {
+            let style = {
+                display: "inline-block"
+            }
 
-        let style = {
-            display: this.state.display
+
+            return (
+                <div className="dialog-box">
+                    <img src={this.props.image}></img>
+                </div>
+            )
         }
-        return(
-            <div style = {style} className = "dialog-box">
-                <img src = {this.props.image}></img>
-            </div>
-        )
+        else if (this.props.isVisible !== false) {
+            let style = {
+                display: "none"
+            }
+            return (
+
+                <div style={style} className="dialog-box">
+                    <img src={this.props.image}></img>
+                </div>
+            )
+        }
     }
 }
 

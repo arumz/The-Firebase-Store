@@ -83,6 +83,7 @@ class Admin extends Component {
 
                     <input type = "hidden" ref ={(el)=>this.imageInput = el}/>
                     <input type = "submit"/>
+                    <h2>List of all posts</h2>
                     <ul>
                         {
                             this.state.dogs.map(dog => <li key = {dog.id}>Name: {dog.info.name} Stock: {dog.info.stock} Price: {dog.info.price} Image-String: {dog.info.image}</li>)

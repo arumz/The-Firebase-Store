@@ -10,16 +10,38 @@ class Store extends Component {
         // console.log(props.dogs);
 
         this.state = {
-            dialog: null,
-            display: 'none'
+            dogs: [],
+            dialogIsVisible: false,
         }
 
 
 }
-childImageClicked(src) {
-    this.setState({dialog: src})
-    this.setState({display: 'inline-block'})
-}
+    componentWillMount(){
+        //occurs before render
+
+        //if path/reference is not created beforehand in Firebase, it will create it now.
+        let dogRef = fire.database().ref('dogs').orderByKey().limitToLast(20)
+
+        let items = [];
+
+        //whenever information is added, grab snapshot
+        dogRef.on("child_added", snapshot => {
+            let dog = {info: snapshot.val(), id: snapshot.key}
+            items.push(dog);
+            this.setState({dogs: items});
+
+
+        });
+
+    }
+
+
+    childImageClicked(src, bool) {
+            bool = !bool;
+            this.setState({dialogIsVisible: bool})
+            console.log(bool);
+        this.setState({dialog: src})
+    }
 
 
 
@@ -27,36 +49,36 @@ childImageClicked(src) {
 
 render(){
 
+
+
+
         let user = fire.auth().currentUser;
-        //get rid of dialog once clicked off
 
-        document.body.onClick = function(){
-            this.setState({dialog: null})
-            this.setState({display: 'none'})
-        }
 
-    {/*<div className = "store-container">*/}
-        {/*{this.props.dogs.map((dog, index) => (*/}
-            {/*<Product*/}
-                {/*key={index}*/}
-                {/*name={dog.name}*/}
-                {/*image={dog.image}*/}
-                {/*stock={dog.stock}*/}
-                {/*price={dog.price}*/}
-                {/*onImageClicked = {() => this.childImageClicked(dog.image)}*/}
-            {/*/>*/}
-        {/*))}*/}
-        {/*<DialogPicture image = {this.state.dialog} display = {this.state.display}/>*/}
-    {/*</div>*/}
+        return (
+            <div>
+                <div><h1>Welcome to the store, {user.email}</h1></div>
+                <div className = "store-container">
+                    {this.state.dogs.map((dog) =>
+                        <Product
+                            key={dog.id}
+                            name={dog.info.name}
+                            image={dog.info.image}
+                            stock={dog.info.stock}
+                            price={dog.info.price}
+                            onImageClicked = {() => this.childImageClicked(dog.info.image, this.state.dialogIsVisible)}
+                        />
+                    )}
 
-// DiaglogPicture NEEDS TO BE HERE FOR CSS PURPOSES
-    return (
-        <div>
-            <div><h1>Welcome to the store, {user.email}</h1></div>
+                    <DialogPicture image = {this.state.dialog} isVisible = {'true'}/>
+                </div>
+            </div>
 
-        </div>
+        );
 
-    );
+
+
+
 }
 
 
