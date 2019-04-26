@@ -66,7 +66,7 @@ class Product extends Component {
 
         fire.database().ref('cart').push({name: this.props.name, price: this.props.price});
 
-        //decrement the stock value for that product
+        // decrement the stock value for that product
         let stockNum = this.state.stock;
         stockNum = stockNum - 1;
         console.log("ADDTC" + stockNum);
@@ -106,23 +106,46 @@ render(){
     //     }
     // }
 
+    if (this.state.stock < 1) {
+        let style = {
+            display: 'none'
+        }
+        console.log(style);
+        return (
+            <div className = "main-content">
+                <div id = "product-container" className = "product-container" style = {this.state.style}>
+                    <div className = "add-button-container"><img style = {style} onClick = {this.addToCart.bind(this)} alt = "add to cart" className = "add-button" src = {add}></img></div>
+                    <h2 className = "product-title">{this.props.name}</h2>
+                    <div id = "image-container" className = "image-container"><img onClick={this.handleChange} alt= "dog"id = "picture" className = "doggo" alt = "dog" src = {this.props.image}></img></div>
+                    <div className = "product-detail-container">
+                        <h4 className = "product-stock-detail">Stock: {this.state.stock} </h4>
+                        <h4 className = "product-price-detail">Price: ${this.props.price} </h4>
+                    </div>
+                    <h4 className = "stock-alert" style = {this.state.style.lowAlert}>Low stock!</h4>
+                </div>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div className = "main-content">
+                <div id = "product-container" className = "product-container" style = {this.state.style}>
+                    <div className = "add-button-container"><img onClick = {this.addToCart.bind(this)} alt = "add to cart" className = "add-button" src = {add}></img></div>
+                    <h2 className = "product-title">{this.props.name}</h2>
+                    <div id = "image-container" className = "image-container"><img onClick={this.handleChange} alt= "dog"id = "picture" className = "doggo" alt = "dog" src = {this.props.image}></img></div>
+                    <div className = "product-detail-container">
+                        <h4 className = "product-stock-detail">Stock: {this.state.stock} </h4>
+                        <h4 className = "product-price-detail">Price: ${this.props.price} </h4>
+                    </div>
+                    <h4 className = "stock-alert" style = {this.state.style.lowAlert}>Low stock!</h4>
+                </div>
+            </div>
+        );
+    }
 
 
     // console.log(clickedPicture);
-    return (
-        <div className = "main-content">
-            <div id = "product-container" className = "product-container" style = {this.state.style}>
-                <div className = "add-button-container"><img style = {this.state.style.addButton} onClick = {this.addToCart.bind(this)} alt = "add to cart" className = "add-button" src = {add}></img></div>
-                <h2 className = "product-title">{this.props.name}</h2>
-                <div id = "image-container" className = "image-container"><img onClick={this.handleChange} alt= "dog"id = "picture" className = "doggo" alt = "dog" src = {this.props.image}></img></div>
-                <div className = "product-detail-container">
-                    <h4 className = "product-stock-detail">Stock: {this.state.stock} </h4>
-                    <h4 className = "product-price-detail">Price: ${this.props.price} </h4>
-                </div>
-                <h4 className = "stock-alert" style = {this.state.style.lowAlert}>Low stock!</h4>
-            </div>
-        </div>
-    );
+
 }
 
 
