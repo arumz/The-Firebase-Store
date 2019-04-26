@@ -28,13 +28,14 @@ class Admin extends Component {
         //occurs before render
 
         //if path/reference is not created beforehand in Firebase, it will create it now.
-        let messageRef = fire.database().ref('dogs').orderByKey().limitToLast(20)
+        let dogRef = fire.database().ref('dogs').orderByKey().limitToLast(20)
 
         let items = [];
 
         //whenever information is added, grab snapshot
-        messageRef.on("child_added", snapshot => {
-            let dog = {name: snapshot.val(), id: snapshot.key }
+        dogRef.on("child_added", snapshot => {
+            let dog = {info: snapshot.val(), id: snapshot.key}
+            console.log(dog);
             items.push(dog);
             this.setState({dogs: items});
         });
@@ -45,9 +46,10 @@ class Admin extends Component {
     addDog(e) {
         e.preventDefault();
 
-        fire.database().ref('dogs').push(this.nameInput.value);
+        fire.database().ref('dogs').push({name: this.nameInput.value, stock: this.stockInput.value, price: this.priceInput.value, image: this.state.dogImages[8]});
         this.nameInput.value = "";
-
+        this.stockInput.value ="";
+        this.priceInput.value="";
     }
 
 
@@ -55,19 +57,35 @@ class Admin extends Component {
 
     render(){
 
-        let style = {
-            display: 'none',
-        }
+
 
         // conditionals before rendering!
-            //if blah blah
+
+
+
             return (
                 <form onSubmit={this.addDog.bind(this)}>
-                    <input type = "text" ref = { (el)=>this.nameInput = el}/>
+                    <h1>Create New Dog Post</h1>
+                    <label>
+                        Name:
+                        <input type = "text" ref = {(el)=>this.nameInput = el} required minLength={1}/>
+                    </label>
+
+                    <label>
+                        Stock:
+                        <input type = "text" ref = {(el)=>this.stockInput = el} required minLength={1}/>
+                    </label>
+
+                    <label>
+                        Price:
+                        <input type = "text" ref = {(el)=>this.priceInput = el} required minLength={1}/>
+                    </label>
+
+                    <input type = "hidden" ref ={(el)=>this.imageInput = el}/>
                     <input type = "submit"/>
                     <ul>
                         {
-                            this.state.dogs.map(dog => <li key = {dog.id}>{dog.name}</li>)
+                            this.state.dogs.map(dog => <li key = {dog.id}>Name: {dog.info.name} Stock: {dog.info.stock} Price: {dog.info.price} Image-String: {dog.info.image}</li>)
                         }
                     </ul>
                 </form>
