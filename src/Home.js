@@ -1,9 +1,15 @@
-import React from "react";
+import React, {Component} from "react";
+import fire from './Fire'
 
-export default function Home() {
-
-    return (
-       <h1>HOME</h1>
-    );
-
+class Home extends Component {
+    render(){
+        let user = fire.auth().currentUser;
+        return(
+            <div>
+                <h1>Home to {user.email}</h1>
+            </div>
+        )
+    }
 }
+
+export default Home;

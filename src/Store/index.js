@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Product from './Product'
 import DialogPicture from './DialogPicture';
+import fire from '../Fire.js'
 
 
 class Store extends Component {
@@ -25,6 +26,8 @@ childImageClicked(src) {
 
 
 render(){
+
+        let user = fire.auth().currentUser;
         //get rid of dialog once clicked off
 
         document.body.onClick = function(){
@@ -32,22 +35,27 @@ render(){
             this.setState({display: 'none'})
         }
 
+    {/*<div className = "store-container">*/}
+        {/*{this.props.dogs.map((dog, index) => (*/}
+            {/*<Product*/}
+                {/*key={index}*/}
+                {/*name={dog.name}*/}
+                {/*image={dog.image}*/}
+                {/*stock={dog.stock}*/}
+                {/*price={dog.price}*/}
+                {/*onImageClicked = {() => this.childImageClicked(dog.image)}*/}
+            {/*/>*/}
+        {/*))}*/}
+        {/*<DialogPicture image = {this.state.dialog} display = {this.state.display}/>*/}
+    {/*</div>*/}
 
 // DiaglogPicture NEEDS TO BE HERE FOR CSS PURPOSES
     return (
-        <div className = "store-container">
-            {this.props.dogs.map((dog, index) => (
-                <Product
-                    key={index}
-                    name={dog.name}
-                    image={dog.image}
-                    stock={dog.stock}
-                    price={dog.price}
-                    onImageClicked = {() => this.childImageClicked(dog.image)}
-                />
-            ))}
-            <DialogPicture image = {this.state.dialog} display = {this.state.display}/>
+        <div>
+            <div><h1>Welcome to the store, {user.email}</h1></div>
+
         </div>
+
     );
 }
 

@@ -15,7 +15,10 @@ class Admin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: []
+            dogs: [],
+            dogImages: [
+                chocolate, dalmation, corgi, black, greyhound, mastiff, pit, germanpup, wolf
+            ]
         }
 
 
@@ -25,35 +28,46 @@ class Admin extends Component {
         //occurs before render
 
         //if path/reference is not created beforehand in Firebase, it will create it now.
-        let messageRef = fire.database().ref('messages').orderByKey().limitToLast(20)
+        let messageRef = fire.database().ref('dogs').orderByKey().limitToLast(20)
 
         let items = [];
 
         //whenever information is added, grab snapshot
         messageRef.on("child_added", snapshot => {
-            let message = {text: snapshot.val(), id: snapshot.key }
-            items.push(message);
-            this.setState({messages: items});
+            let dog = {name: snapshot.val(), id: snapshot.key }
+            items.push(dog);
+            this.setState({dogs: items});
         });
 
     }
 
-    addMessage(e) {
+
+    addDog(e) {
         e.preventDefault();
-        fire.database().ref('messages').push(this.inputEl.value);
-        this.inputEl.value = "";
+
+        fire.database().ref('dogs').push(this.nameInput.value);
+        this.nameInput.value = "";
+
     }
-        render(){
+
+
+    // console.log(this.state.dogImages.chocolate);
+
+    render(){
+
+        let style = {
+            display: 'none',
+        }
 
         // conditionals before rendering!
             //if blah blah
             return (
-                <form onSubmit={this.addMessage.bind(this)}>
-                    <input type = "text" ref = { (el)=>this.inputEl = el}/>
+                <form onSubmit={this.addDog.bind(this)}>
+                    <input type = "text" ref = { (el)=>this.nameInput = el}/>
                     <input type = "submit"/>
                     <ul>
                         {
-                            this.state.messages.map(message => <li key = {message.id}>{message.text}</li>)
+                            this.state.dogs.map(dog => <li key = {dog.id}>{dog.name}</li>)
                         }
                     </ul>
                 </form>
