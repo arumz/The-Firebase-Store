@@ -21,9 +21,15 @@ class Cart extends Component {
 
         //whenever information is added, grab snapshot
         cartRef.on("child_added", snapshot => {
+
+            // let items = Object.keys(snapshot.val()).map(i => {
+            //     return snapshot.val()[i]
+            // });
+
             let item = {info: snapshot.val(), id: snapshot.key}
 
             //add this instance of item to the total
+            console.log(this.state.total);
             let runningTotal = this.state.total;
 
             let itemPrice = parseInt(item.info.price);
@@ -34,16 +40,14 @@ class Cart extends Component {
 
             items.push(item);
             this.setState({cart: items});
-
-
         });
     }
 
    componentDidUpdate(prevProps, prevState) {
-       if (prevState.total !== this.state.total) {
-           // this.fetchData(this.state.total);
-           this.forceUpdate();
-       }
+       // if (prevState.total !== this.state.total) {
+       //     // this.fetchData(this.state.total);
+       //     this.forceUpdate();
+       // }
    }
 
     render(){

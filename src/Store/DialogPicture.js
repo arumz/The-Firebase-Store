@@ -24,7 +24,7 @@ class DialogPicture extends Component {
                 </div>
             )
         }
-        else if (this.props.isVisible !== false) {
+        else if (this.props.isVisible === false) {
             let style = {
                 display: "none"
             }

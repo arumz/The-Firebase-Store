@@ -29,7 +29,6 @@ class Product extends Component {
     componentWillMount(){
         //changes card color and displays message if condition has been met
 
-        console.log("COM" + this.state.stock);
         if (this.state.stock === 0) {
             let addButtonStyle = this.state.style.addButton;
             addButtonStyle.display = 'none';
@@ -69,7 +68,6 @@ class Product extends Component {
         // decrement the stock value for that product
         let stockNum = this.state.stock;
         stockNum = stockNum - 1;
-        console.log("ADDTC" + stockNum);
         this.setState({stock: stockNum})
 
         // if (this.state.stock === 0){
@@ -91,7 +89,6 @@ class Product extends Component {
 
 render(){
 
-    console.log(this.state.stock);
 
     // if (this.state.stock === 0) {
     //     let addButtonStyle = this.state.style.addButton;

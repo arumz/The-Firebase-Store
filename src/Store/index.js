@@ -39,7 +39,6 @@ class Store extends Component {
     childImageClicked(src, bool) {
             bool = !bool;
             this.setState({dialogIsVisible: bool})
-            console.log(bool);
         this.setState({dialog: src})
     }
 
@@ -70,7 +69,7 @@ render(){
                         />
                     )}
 
-                    <DialogPicture image = {this.state.dialog} isVisible = {'true'}/>
+                    <DialogPicture image = {this.state.dialog} isVisible = {this.state.dialogIsVisible}/>
                 </div>
             </div>
 
